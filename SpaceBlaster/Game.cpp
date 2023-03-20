@@ -37,18 +37,42 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 	return true;
 }
 
+void Game::run() {
+	Uint32 lastUpdate = SDL_GetTicks();
+	Uint32 accumulator = 0;
+
+	while (isRunning()) {
+		Uint32 currentTicks = SDL_GetTicks();
+		Uint32 frameTime = currentTicks - lastUpdate;
+		lastUpdate = currentTicks;
+
+		accumulator += frameTime;
+
+		handleEvents();
+
+		while (accumulator >= FIXED_TIMESTEP) {
+			update();
+			accumulator -= FIXED_TIMESTEP;
+		}
+
+		float interpolation = static_cast<float>(accumulator) / FIXED_TIMESTEP;
+		render(interpolation);
+	}
+
+	clean();
+}
+
 void Game::handleEvents() {
 	SDL_Event event;
 	while (SDL_PollEvent(&event)) {
-		switch (event.type) {
-			case SDL_QUIT:
-				running = false;
-				break;
-			default:
-				player->handleEvents(event);
-				break;
+		if (event.type == SDL_QUIT) {
+			running = false;
 		}
 	}
+
+	const Uint8* keyboardState = SDL_GetKeyboardState(NULL);
+	float deltaTime = static_cast<float>(FIXED_TIMESTEP) / 1000.0f;
+	player->handleEvents(keyboardState, deltaTime);
 }
 
 void Game::update() {
@@ -56,12 +80,12 @@ void Game::update() {
 	player->update();
 }
 
-void Game::render() {
+void Game::render(float interpolation) {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	SDL_RenderClear(renderer);
 
 	// Render game objects here
-	player->render(renderer);
+	player->render(renderer, interpolation);
 
 	SDL_RenderPresent(renderer);
 }

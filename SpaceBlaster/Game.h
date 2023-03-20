@@ -9,9 +9,10 @@ public:
     ~Game();
 
     bool init(const char* title, int xpos, int ypos, int width, int height, int flags);
+    void run();
     void handleEvents();
     void update();
-    void render();
+    void render(float interpolation);
     void clean();
     bool isRunning();
 
@@ -20,4 +21,5 @@ private:
     SDL_Window* window;
     SDL_Renderer* renderer;
     Player* player;
+    const int FIXED_TIMESTEP = 1000 / 60; // 60 updates per second (approx. 16.67 ms per update)
 };
