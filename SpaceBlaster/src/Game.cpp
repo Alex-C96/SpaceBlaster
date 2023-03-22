@@ -3,9 +3,11 @@
 #include "SDL_image.h"
 #include <iostream>
 
-Game::Game() : running(false), window(nullptr), renderer(nullptr), player(nullptr) {}
+Game::Game() : running(false), window(nullptr), renderer(nullptr), player(nullptr) {
+}
 
-Game::~Game() {}
+Game::~Game() {
+}
 
 bool Game::init(const char* title, int xpos, int ypos, int width, int height, int flags) {
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -32,6 +34,8 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 	}
 
 	player = new Player(renderer);
+	enemies.push_back(new Enemy(renderer, 100, 100));
+	//enemies.push_back(new FastEnemy(renderer, 200, 200));
 
 	running = true;
 	return true;
@@ -78,6 +82,18 @@ void Game::handleEvents() {
 void Game::update() {
 	// Update game objects here
 	player->update();
+	for (auto bullet : player->getBullets()) {
+		bullet->update();
+	}
+	for (auto enemy : enemies) {
+		enemy->update();
+
+		// Check for collision between player and enemy
+		if (checkCollision(player->getBoundingBox(), enemy->getBoundingBox())) {
+			// Handle collision
+			std::cout << "Collision detected!" << std::endl;
+		}
+	}
 }
 
 void Game::render(float interpolation) {
@@ -87,11 +103,23 @@ void Game::render(float interpolation) {
 	// Render game objects here
 	player->render(renderer, interpolation);
 
+	for (auto bullet : player->getBullets()) {
+		bullet->render(renderer);
+	}
+
+	// Render all enemies
+	for (auto enemy : enemies) {
+		enemy->render(renderer);
+	}
+
 	SDL_RenderPresent(renderer);
 }
 
 void Game::clean() {
 	delete player;
+	for (auto enemy : enemies) {
+		delete enemy;
+	}
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	IMG_Quit();
@@ -100,4 +128,13 @@ void Game::clean() {
 
 bool Game::isRunning() {
 	return running;
+}
+
+bool Game::checkCollision(const SDL_Rect& a, const SDL_Rect& b) {
+	if (a.x + a.w <= b.x) return false;
+	if (a.x >= b.x + b.w) return false;
+	if (a.y + a.h <= b.y) return false;
+	if (a.y >= b.y + b.h) return false;
+
+	return true;
 }
