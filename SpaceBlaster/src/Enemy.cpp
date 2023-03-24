@@ -17,7 +17,7 @@ Enemy::Enemy(SDL_Renderer* renderer, int x, int y) {
 	destRect = { 0, 0, 32, 32 };
 
 	this->x = static_cast<float>(x);
-	this->x = static_cast<float>(y);
+	this->y = static_cast<float>(y);
 }
 
 Enemy::~Enemy() {
@@ -26,7 +26,7 @@ Enemy::~Enemy() {
 
 void Enemy::update() {
 	// Enemy activity
-	x += 1;
+	//x += 1;
 }
 
 void Enemy::render(SDL_Renderer* renderer) {

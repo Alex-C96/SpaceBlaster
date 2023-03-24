@@ -27,4 +27,5 @@ private:
     Player* player;
     const int FIXED_TIMESTEP = 1000 / 60; // 60 updates per second (approx. 16.67 ms per update)
     std::vector<Enemy*> enemies;
+    SDL_Texture* backgroundTexture;
 };

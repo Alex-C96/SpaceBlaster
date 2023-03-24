@@ -33,8 +33,23 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 		return false;
 	}
 
+	// Create background Image
+	SDL_Surface* backgroundSurface = IMG_Load("C:/Users/alexa/source/repos/SpaceBlaster/SpaceBlaster/assets/stars_background.png");
+	if (!backgroundSurface) {
+		std::cout << "Background image error: " << IMG_GetError() << std::endl;
+		return false;
+	}
+
+	backgroundTexture = SDL_CreateTextureFromSurface(renderer, backgroundSurface);
+	SDL_FreeSurface(backgroundSurface);
+
 	player = new Player(renderer);
-	enemies.push_back(new Enemy(renderer, 100, 100));
+	int x = 80;
+	int y = 50;
+	for (int i = 0; i < 12; i++) {
+		x += 50;
+		enemies.push_back(new Enemy(renderer, x, y));
+	}
 	//enemies.push_back(new FastEnemy(renderer, 200, 200));
 
 	running = true;
@@ -100,6 +115,12 @@ void Game::render(float interpolation) {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	SDL_RenderClear(renderer);
 
+	// Render game background
+	SDL_Rect backgroundSrcRect = { 0, 0, 800, 600 }; // Assuming the background image is the same size as the window
+	SDL_Rect backgroundDestRect = { 0, 0, 800, 600 };
+	SDL_RenderCopy(renderer, backgroundTexture, &backgroundSrcRect, &backgroundDestRect);
+
+
 	// Render game objects here
 	player->render(renderer, interpolation);
 
@@ -120,6 +141,7 @@ void Game::clean() {
 	for (auto enemy : enemies) {
 		delete enemy;
 	}
+	SDL_DestroyTexture(backgroundTexture);
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	IMG_Quit();
