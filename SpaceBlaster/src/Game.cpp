@@ -108,6 +108,15 @@ void Game::update() {
 			// Handle collision
 			std::cout << "Collision detected!" << std::endl;
 		}
+
+		// Check for collision between bullets and enemy
+		for (auto bullet : player->getBullets()) {
+			if (checkCollision(bullet->getBoundingBox(), enemy->getBoundingBox())) {
+				// Handle bullet-enemy collision
+				std::cout << "Bullet hit enemy!" << std::endl;
+				bullet->hitEnemy = true;
+			}
+		}
 	}
 }
 
@@ -153,10 +162,5 @@ bool Game::isRunning() {
 }
 
 bool Game::checkCollision(const SDL_Rect& a, const SDL_Rect& b) {
-	if (a.x + a.w <= b.x) return false;
-	if (a.x >= b.x + b.w) return false;
-	if (a.y + a.h <= b.y) return false;
-	if (a.y >= b.y + b.h) return false;
-
-	return true;
+	return SDL_HasIntersection(&a, &b) == SDL_TRUE;
 }

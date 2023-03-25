@@ -3,7 +3,7 @@
 #include <iostream>
 
 Bullet::Bullet(SDL_Renderer* renderer, int x, int y, float velX, float velY)
-	: x(x), y(y), velX(velX), velY(velY) {
+	: x(x), y(y), velX(velX), velY(velY), hitEnemy(false) {
 	SDL_Surface* surface = IMG_Load("C:/Users/alexa/source/repos/SpaceBlaster/SpaceBlaster/assets/bullet.png");
 	if (!surface) {
 		// Handle error

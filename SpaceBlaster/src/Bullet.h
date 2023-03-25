@@ -6,6 +6,7 @@ public:
     Bullet(SDL_Renderer* renderer, int x, int y, float velX, float velY);
     ~Bullet();
 
+    bool hitEnemy;
     void update();
     void render(SDL_Renderer* renderer);
     SDL_Rect getBoundingBox() const;

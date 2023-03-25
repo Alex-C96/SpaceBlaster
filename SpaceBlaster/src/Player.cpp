@@ -4,6 +4,7 @@
 
 Player::Player(SDL_Renderer* renderer) : renderer(renderer) {
     shootCooldown = 0;
+
 	// Load the player sprite
 	SDL_Surface* surface = IMG_Load("C:/Users/alexa/source/repos/SpaceBlaster/SpaceBlaster/assets/player.png");
 	if (!surface) {
@@ -17,7 +18,7 @@ Player::Player(SDL_Renderer* renderer) : renderer(renderer) {
     int imageWidth = surface->w;
     int imageHeight = surface->h;
 
-	srcRect = { 0, 0, imageWidth, imageHeight }; // Assuming the player sprite is 32x32 pixels
+	srcRect = { 0, 0, imageWidth, imageHeight };
 	destRect = { 400, 400, imageWidth, imageHeight };
 	x = 400;
 	y = 400;
@@ -66,7 +67,7 @@ void Player::update() {
         bullets[i]->update();
 
         // Check if the bullet is off the screen  --TODO check if bullet has hit enemy
-        if (bullets[i]->isOffScreen()) {
+        if (bullets[i]->isOffScreen() || bullets[i]->hitEnemy == true) {
             delete bullets[i];
             bullets.erase(bullets.begin() + i);
         }
