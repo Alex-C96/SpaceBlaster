@@ -1,7 +1,8 @@
 #pragma once
 #include <SDL.h>
+#include "GameObject.h"
 
-class Enemy {
+class Enemy : public GameObject {
 public:
 	Enemy(SDL_Renderer* renderer, int x, int y);
 	virtual ~Enemy();

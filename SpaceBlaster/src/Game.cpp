@@ -100,7 +100,8 @@ void Game::update() {
 	for (auto bullet : player->getBullets()) {
 		bullet->update();
 	}
-	for (auto enemy : enemies) {
+	for (auto it = enemies.begin(); it != enemies.end(); ) {
+		auto enemy = *it;
 		enemy->update();
 
 		// Check for collision between player and enemy
@@ -115,7 +116,16 @@ void Game::update() {
 				// Handle bullet-enemy collision
 				std::cout << "Bullet hit enemy!" << std::endl;
 				bullet->hitEnemy = true;
+				enemy->takeDamage(1);
 			}
+		}
+
+		if (enemy->getHealth() <= 0) {
+			it = enemies.erase(it);
+			delete enemy;
+		}
+		else {
+			++it;
 		}
 	}
 }

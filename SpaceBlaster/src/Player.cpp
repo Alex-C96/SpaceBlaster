@@ -6,22 +6,15 @@ Player::Player(SDL_Renderer* renderer) : renderer(renderer) {
     shootCooldown = 0;
 
 	// Load the player sprite
-	SDL_Surface* surface = IMG_Load("C:/Users/alexa/source/repos/SpaceBlaster/SpaceBlaster/assets/player.png");
-	if (!surface) {
-		// Handle error
-        std::cout << "Surface error: " << SDL_GetError() << std::endl;
-    }
+    texture = createTexture(renderer, "C:/Users/alexa/source/repos/SpaceBlaster/SpaceBlaster/assets/player.png");
+    setPosition(400, 400);
+    setSize(32, 32);
+    setHealth(100);
+    prevX = 0;
+    prevY = 0;
 
-	texture = SDL_CreateTextureFromSurface(renderer, surface);
-	SDL_FreeSurface(surface);
-
-    int imageWidth = surface->w;
-    int imageHeight = surface->h;
-
-	srcRect = { 0, 0, imageWidth, imageHeight };
-	destRect = { 400, 400, imageWidth, imageHeight };
-	x = 400;
-	y = 400;
+	srcRect = { 0, 0, width, height };
+	destRect = { static_cast<int>(x), static_cast<int>(y), width, height };
 }
 
 Player::~Player() {
@@ -30,13 +23,12 @@ Player::~Player() {
 
 void Player::handleEvents(const Uint8* keyboardState, float deltaTime) {
     const float speed = 200.0f; // Adjust the speed value as needed
+    velX = 0;
+    velY = 0;
 
     if (shootCooldown > 0) {
         shootCooldown -= deltaTime;
     }
-
-    velX = 0;
-    velY = 0;
 
     if (keyboardState[SDL_SCANCODE_UP]) {
         velY -= speed * deltaTime;

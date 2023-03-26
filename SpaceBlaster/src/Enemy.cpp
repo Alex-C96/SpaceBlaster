@@ -3,18 +3,14 @@
 #include <SDL_image.h>
 
 Enemy::Enemy(SDL_Renderer* renderer, int x, int y) {
-	SDL_Surface* surface = IMG_Load("C:/Users/alexa/source/repos/SpaceBlaster/SpaceBlaster/assets/alien.png");
-	if (!surface) {
-		// Handle error
-		std::cout << "Surface error: " << SDL_GetError() << std::endl;
-	}
 
-	texture = SDL_CreateTextureFromSurface(renderer, surface);
+	texture = createTexture(renderer, "C:/Users/alexa/source/repos/SpaceBlaster/SpaceBlaster/assets/alien.png");
+	setSize(32, 32);
+	setPosition(x, y);
+	setHealth(10);
 
-	SDL_FreeSurface(surface);
-
-	srcRect = { 0, 0, 32, 32 };
-	destRect = { 0, 0, 32, 32 };
+	srcRect = { 0, 0, width, height };
+	destRect = { 0, 0, width, height };
 
 	this->x = static_cast<float>(x);
 	this->y = static_cast<float>(y);

@@ -3,8 +3,9 @@
 #include <SDL.h>
 #include <vector>
 #include "Bullet.h"
+#include "GameObject.h"
 
-class Player {
+class Player : public GameObject {
 public:
 	Player(SDL_Renderer* renderer);
 	~Player();
@@ -21,8 +22,6 @@ private:
 	SDL_Renderer* renderer;
 	SDL_Rect srcRect;
 	SDL_Rect destRect;
-	float x;
-	float y;
 	float prevX;
 	float prevY;
 	float velX;
