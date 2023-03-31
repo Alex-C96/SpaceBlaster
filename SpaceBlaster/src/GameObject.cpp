@@ -3,7 +3,7 @@
 #include <SDL_image.h>
 #include <iostream>
 
-GameObject::GameObject() {}
+GameObject::GameObject(SDL_Renderer* renderer) : renderer(renderer) {}
 
 GameObject::~GameObject() {}
 

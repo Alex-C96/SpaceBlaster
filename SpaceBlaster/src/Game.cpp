@@ -46,9 +46,10 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 	player = new Player(renderer);
 	int x = 80;
 	int y = 50;
-	for (int i = 0; i < 12; i++) {
+	for (int i = 0; i < 1; i++) {
 		x += 50;
 		enemies.push_back(new Enemy(renderer, x, y));
+		enemies[i]->setSineWaveMovement(50.0f, 2.0f);
 	}
 	//enemies.push_back(new FastEnemy(renderer, 200, 200));
 
@@ -104,6 +105,10 @@ void Game::update() {
 		auto enemy = *it;
 		enemy->update();
 
+		for (auto bullet : enemy->getBullets()) {
+			bullet->update();
+		}
+
 		// Check for collision between player and enemy
 		if (checkCollision(player->getBoundingBox(), enemy->getBoundingBox())) {
 			// Handle collision
@@ -150,6 +155,9 @@ void Game::render(float interpolation) {
 	// Render all enemies
 	for (auto enemy : enemies) {
 		enemy->render(renderer);
+		for (auto bullet : enemy->getBullets()) {
+			bullet->render(renderer);
+		}
 	}
 
 	SDL_RenderPresent(renderer);

@@ -2,7 +2,7 @@
 #include <iostream>
 #include <SDL_image.h>
 
-Player::Player(SDL_Renderer* renderer) : renderer(renderer) {
+Player::Player(SDL_Renderer* renderer) : GameObject(renderer) {
     shootCooldown = 0;
 
 	// Load the player sprite

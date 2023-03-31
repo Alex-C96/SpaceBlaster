@@ -19,7 +19,6 @@ public:
 
 private:
 	SDL_Texture* texture;
-	SDL_Renderer* renderer;
 	SDL_Rect srcRect;
 	SDL_Rect destRect;
 	float prevX;

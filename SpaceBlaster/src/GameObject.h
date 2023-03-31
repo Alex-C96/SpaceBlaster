@@ -3,7 +3,7 @@
 
 class GameObject {
 public:
-	GameObject();
+	GameObject(SDL_Renderer* renderer);
 	virtual ~GameObject();
 
 	void setPosition(float x, float y);
@@ -14,6 +14,7 @@ public:
 	void takeDamage(int damage);
 
 protected:
+	SDL_Renderer* renderer;
 	SDL_Texture* createTexture(SDL_Renderer* renderer, const char* imagePath);
 	int health;
 	float x;
