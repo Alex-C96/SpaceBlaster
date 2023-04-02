@@ -5,8 +5,8 @@
 
 Enemy::Enemy(SDL_Renderer* renderer, int x, int y) : GameObject(renderer) {
 
-	texture = createTexture(renderer, "C:/Users/alexa/source/repos/SpaceBlaster/SpaceBlaster/assets/alien.png");
-	setSize(32, 32);
+	texture = createTexture("../SpaceBlaster/assets/enemies/bug_1.png");
+	setSize(64, 64);
 	setPosition(x, y);
 	setHealth(10);
 	//setWaypoints();

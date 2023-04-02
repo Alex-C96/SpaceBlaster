@@ -34,7 +34,7 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 	}
 
 	// Create background Image
-	SDL_Surface* backgroundSurface = IMG_Load("C:/Users/alexa/source/repos/SpaceBlaster/SpaceBlaster/assets/stars_background.png");
+	SDL_Surface* backgroundSurface = IMG_Load("../SpaceBlaster/assets/stars_background.png");
 	if (!backgroundSurface) {
 		std::cout << "Background image error: " << IMG_GetError() << std::endl;
 		return false;
@@ -43,6 +43,23 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 	backgroundTexture = SDL_CreateTextureFromSurface(renderer, backgroundSurface);
 	SDL_FreeSurface(backgroundSurface);
 
+	// Create Explosions vector
+	std::vector<const char*> explosionImagePaths = {
+		"../SpaceBlaster/assets/explosions/explosion-01.png",
+		"../SpaceBlaster/assets/explosions/explosion-02.png",
+		"../SpaceBlaster/assets/explosions/explosion-03.png",
+		"../SpaceBlaster/assets/explosions/explosion-04.png",
+		"../SpaceBlaster/assets/explosions/explosion-05.png",
+		"../SpaceBlaster/assets/explosions/explosion-06.png",
+		"../SpaceBlaster/assets/explosions/explosion-07.png",
+		"../SpaceBlaster/assets/explosions/explosion-08.png",
+		"../SpaceBlaster/assets/explosions/explosion-09.png",
+		"../SpaceBlaster/assets/explosions/explosion-10.png",
+		"../SpaceBlaster/assets/explosions/explosion-11.png"
+	};
+	this->explosionImagePaths = explosionImagePaths;
+
+	// Create player and enemies
 	player = new Player(renderer);
 	int x = 80;
 	int y = 50;
@@ -126,8 +143,21 @@ void Game::update() {
 		}
 
 		if (enemy->getHealth() <= 0) {
+			Explosion* explosion = new Explosion(renderer, enemy->getX(), enemy->getY(), this->explosionImagePaths);
+			explosions.push_back(explosion);
 			it = enemies.erase(it);
 			delete enemy;
+		}
+		else {
+			++it;
+		}
+	}
+	for (auto it = explosions.begin(); it != explosions.end();) {
+		(*it)->update();
+
+		if ((*it)->isFinished()) {
+			delete* it;
+			it = explosions.erase(it);
 		}
 		else {
 			++it;
@@ -140,7 +170,7 @@ void Game::render(float interpolation) {
 	SDL_RenderClear(renderer);
 
 	// Render game background
-	SDL_Rect backgroundSrcRect = { 0, 0, 800, 600 }; // Assuming the background image is the same size as the window
+	SDL_Rect backgroundSrcRect = { 0, 0, 800, 600 }; 
 	SDL_Rect backgroundDestRect = { 0, 0, 800, 600 };
 	SDL_RenderCopy(renderer, backgroundTexture, &backgroundSrcRect, &backgroundDestRect);
 
@@ -150,6 +180,10 @@ void Game::render(float interpolation) {
 
 	for (auto bullet : player->getBullets()) {
 		bullet->render(renderer);
+	}
+
+	for (auto explosion : explosions) {
+		explosion->render();
 	}
 
 	// Render all enemies
@@ -168,6 +202,11 @@ void Game::clean() {
 	for (auto enemy : enemies) {
 		delete enemy;
 	}
+	for (auto explosion : explosions) {
+		delete explosion;
+	}
+	explosions.clear();
+	explosionImagePaths.clear();
 	SDL_DestroyTexture(backgroundTexture);
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);

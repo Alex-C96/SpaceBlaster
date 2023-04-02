@@ -6,9 +6,9 @@ Player::Player(SDL_Renderer* renderer) : GameObject(renderer) {
     shootCooldown = 0;
 
 	// Load the player sprite
-    texture = createTexture(renderer, "C:/Users/alexa/source/repos/SpaceBlaster/SpaceBlaster/assets/player.png");
+    texture = createTexture("../SpaceBlaster/assets/player/greyblue_01.png");
     setPosition(400, 400);
-    setSize(32, 32);
+    setSize(48, 48);
     setHealth(100);
     prevX = 0;
     prevY = 0;

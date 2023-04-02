@@ -10,12 +10,14 @@ public:
 	void setSize(int width, int height);
 
 	int getHealth() const;
+	float getX() const;
+	float getY() const;
 	void setHealth(int health);
 	void takeDamage(int damage);
 
 protected:
 	SDL_Renderer* renderer;
-	SDL_Texture* createTexture(SDL_Renderer* renderer, const char* imagePath);
+	SDL_Texture* createTexture(const char* imagePath);
 	int health;
 	float x;
 	float y;
