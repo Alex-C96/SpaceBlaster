@@ -5,6 +5,7 @@
 #include <SDL.h>
 #include "Player.h"
 #include "Bullet.h"
+#include "Explosion.h"
 
 class Game {
 public:
@@ -27,5 +28,7 @@ private:
     Player* player;
     const int FIXED_TIMESTEP = 1000 / 60; // 60 updates per second (approx. 16.67 ms per update)
     std::vector<Enemy*> enemies;
+    std::vector<const char*> explosionImagePaths;
+    std::vector<Explosion*> explosions;
     SDL_Texture* backgroundTexture;
 };

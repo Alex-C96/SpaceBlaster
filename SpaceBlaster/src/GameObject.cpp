@@ -3,11 +3,11 @@
 #include <SDL_image.h>
 #include <iostream>
 
-GameObject::GameObject() {}
+GameObject::GameObject(SDL_Renderer* renderer) : renderer(renderer) {}
 
 GameObject::~GameObject() {}
 
-SDL_Texture* GameObject::createTexture(SDL_Renderer* renderer, const char* imagePath) {
+SDL_Texture* GameObject::createTexture(const char* imagePath) {
 	SDL_Surface* surface = IMG_Load(imagePath);
 	if (!surface) {
 		std::cout << "Surface error: " << SDL_GetError() << std::endl;
@@ -39,4 +39,12 @@ void GameObject::setHealth(int health) {
 
 void GameObject::takeDamage(int damage) {
 	health -= damage;
+}
+
+float GameObject::getX() const {
+	return x;
+}
+
+float GameObject::getY() const {
+	return y;
 }
