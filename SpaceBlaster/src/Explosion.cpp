@@ -1,5 +1,6 @@
 #include "Explosion.h"
 #include "SDL_image.h"
+#include <iostream>
 
 Explosion::Explosion(SDL_Renderer* renderer, float x, float y, std::vector<const char*>& imagePaths)
 	: GameObject(renderer), currentFrame(0), frameCount(11), frameWidth(64), frameHeight(64), animationSpeed(10) {
@@ -25,7 +26,7 @@ void Explosion::update() {
 void Explosion::render() {
 	if (currentFrame < frameCount * animationSpeed) {
 		int frameIndex = currentFrame / animationSpeed;
-		SDL_Rect destRect = { x, y, frameWidth, frameHeight };
+		SDL_Rect destRect = { static_cast<int>(x), static_cast<int>(y), frameWidth, frameHeight };
 		SDL_RenderCopy(renderer, textures[frameIndex], nullptr, &destRect);
 	}
 }

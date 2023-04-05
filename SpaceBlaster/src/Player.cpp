@@ -67,6 +67,7 @@ void Player::update() {
             ++i;
         }
     }
+    setPosition(x, y);
 }
 
 float Player::lerp(float a, float b, float t) {

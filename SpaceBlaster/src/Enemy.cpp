@@ -3,7 +3,7 @@
 #include <iostream>
 #include <SDL_image.h>
 
-Enemy::Enemy(SDL_Renderer* renderer, int x, int y) : GameObject(renderer) {
+Enemy::Enemy(SDL_Renderer* renderer, float x, float y) : GameObject(renderer) {
 
 	texture = createTexture("../SpaceBlaster/assets/enemies/bug_1.png");
 	setSize(64, 64);
@@ -16,8 +16,6 @@ Enemy::Enemy(SDL_Renderer* renderer, int x, int y) : GameObject(renderer) {
 	destRect = { 0, 0, width, height };
 
 	initialY = static_cast<float>(y);
-	this->x = static_cast<float>(x);
-	this->y = static_cast<float>(y);
 }
 
 Enemy::~Enemy() {
@@ -64,6 +62,8 @@ void Enemy::update() {
 	if (x <= 0 || x >= screenWidth - destRect.w) {
 		direction = -direction;
 	}
+
+	setPosition(x, y);
 }
 
 void Enemy::render(SDL_Renderer* renderer) {

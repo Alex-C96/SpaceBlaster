@@ -6,7 +6,7 @@
 
 class Enemy : public GameObject {
 public:
-	Enemy(SDL_Renderer* renderer, int x, int y);
+	Enemy(SDL_Renderer* renderer, float x, float y);
 	virtual ~Enemy();
 
 	virtual void update();
