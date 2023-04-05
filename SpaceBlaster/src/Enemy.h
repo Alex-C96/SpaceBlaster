@@ -15,7 +15,4 @@ protected:
 	SDL_Texture* texture;
 	SDL_Rect srcRect;
 	SDL_Rect destRect;
-
-	float x;
-	float y;
 };
