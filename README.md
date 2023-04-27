@@ -2,7 +2,7 @@
 
 Welcome to **Space Blaster**, an exciting 2D space shooter game built with SDL2! Take control of your spaceship, blast your way through hordes of enemies, and become the ultimate space hero! 💥👾
 
-![SpaceBlaster](https://user-images.githubusercontent.com/76112342/227415205-de3215ad-58b8-4c99-8abc-602b86a27a3f.png)
+![spaceblastertn](https://user-images.githubusercontent.com/76112342/234969983-0eb6cc1d-5f56-433f-aaff-94fd3b49f60e.PNG)
 
 ## Table of Contents
 
