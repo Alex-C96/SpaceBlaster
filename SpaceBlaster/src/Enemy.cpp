@@ -4,7 +4,6 @@
 #include <SDL_image.h>
 
 Enemy::Enemy(SDL_Renderer* renderer, float x, float y) : GameObject(renderer) {
-
 	texture = createTexture("../SpaceBlaster/assets/enemies/bug_1.png");
 	setSize(64, 64);
 	setPosition(x, y);
@@ -13,8 +12,8 @@ Enemy::Enemy(SDL_Renderer* renderer, float x, float y) : GameObject(renderer) {
 	currentWaypoint = 0;
 
 	srcRect = { 0, 0, width, height };
-	destRect = { 0, 0, width, height };
-
+	destRect = { static_cast<int>(x), static_cast<int>(y), width, height };
+	
 	initialY = static_cast<float>(y);
 }
 
@@ -62,7 +61,7 @@ void Enemy::update() {
 	if (x <= 0 || x >= screenWidth - destRect.w) {
 		direction = -direction;
 	}
-
+	
 	setPosition(x, y);
 }
 
@@ -93,8 +92,8 @@ void Enemy::setSineWaveMovement(float amplitude, float speed) {
 }
 
 void Enemy::shootBullet() {
-	int bulletX = x;
-	int bulletY = y;
+	int bulletX = static_cast<int>(x) + (destRect.w / 2) - 5;
+	int bulletY = static_cast<int>(y) + 30;
 	float bulletVelX = 0.0f;
 	float bulletVelY = 5.0f;  // Adjust the bullet speed as needed
 	bullets.push_back(new Bullet(renderer, bulletX, bulletY, bulletVelX, bulletVelY));

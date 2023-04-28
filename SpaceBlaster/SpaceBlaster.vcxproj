@@ -104,13 +104,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\alexa\Documents\libraries\SDL2_image-devel-2.6.3-mingw\SDL2_image-2.6.3\x86_64-w64-mingw32\include\SDL2;C:\Users\alexa\Documents\libraries\SDL2_image-devel-2.6.3-VC\SDL2_image-2.6.3\include;C:\Users\alexa\Documents\libraries\SDL2-devel-2.26.4-VC\SDL2-2.26.4\include;C:\Users\alexa\Documents\libraries\SDL2-devel-2.26.4-mingw\SDL2-2.26.4\x86_64-w64-mingw32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\alexa\Documents\libraries\SFML-2.5.1\include\SFML;C:\Users\alexa\Documents\libraries\SDL2_image-devel-2.6.3-mingw\SDL2_image-2.6.3\x86_64-w64-mingw32\include\SDL2;C:\Users\alexa\Documents\libraries\SDL2_image-devel-2.6.3-VC\SDL2_image-2.6.3\include;C:\Users\alexa\Documents\libraries\SDL2-devel-2.26.4-VC\SDL2-2.26.4\include;C:\Users\alexa\Documents\libraries\SDL2-devel-2.26.4-mingw\SDL2-2.26.4\x86_64-w64-mingw32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\alexa\Documents\libraries\SDL2_image-devel-2.6.3-mingw\SDL2_image-2.6.3\x86_64-w64-mingw32\lib;C:\Users\alexa\Documents\libraries\SDL2_image-devel-2.6.3-VC\SDL2_image-2.6.3\lib\x64;C:\Users\alexa\Documents\libraries\SDL2-devel-2.26.4-mingw\SDL2-2.26.4\x86_64-w64-mingw32\lib;C:\Users\alexa\Documents\libraries\SDL2-devel-2.26.4-VC\SDL2-2.26.4\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\alexa\Documents\libraries\SFML-2.5.1\lib;C:\Users\alexa\Documents\libraries\SDL2_image-devel-2.6.3-mingw\SDL2_image-2.6.3\x86_64-w64-mingw32\lib;C:\Users\alexa\Documents\libraries\SDL2_image-devel-2.6.3-VC\SDL2_image-2.6.3\lib\x64;C:\Users\alexa\Documents\libraries\SDL2-devel-2.26.4-mingw\SDL2-2.26.4\x86_64-w64-mingw32\lib;C:\Users\alexa\Documents\libraries\SDL2-devel-2.26.4-VC\SDL2-2.26.4\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-system.lib;sfml-window.lib;sfml-audio.lib;sfml-graphics.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "SDL_image.h"
 #include <iostream>
+#include <SFML/Graphics.hpp>
 
 Game::Game() : running(false), window(nullptr), renderer(nullptr), player(nullptr) {
 }
@@ -64,9 +65,10 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 	int x = 80;
 	int y = 50;
 	for (int i = 0; i < 1; i++) {
-		x += 50;
 		enemies.push_back(new Enemy(renderer, x, y));
-		enemies[i]->setSineWaveMovement(50.0f, 2.0f);
+		enemies[i]->setSineWaveMovement(50.0f, 1.0f);
+		x += 150;
+		y += 50;
 	}
 	//enemies.push_back(new FastEnemy(renderer, 200, 200));
 
